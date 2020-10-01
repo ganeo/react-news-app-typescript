@@ -1,5 +1,5 @@
 import React, { useReducer, createContext } from 'react'
-import { Switch, Route, MemoryRouter } from 'react-router-dom'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Header from './components/Header/Header'
 import HomePage from './pages/home/HomePage'
 import ClipPage from './pages/clip/ClipPage'
@@ -17,13 +17,13 @@ const App: React.FC = () => {
     <ClipContext.Provider value={{ clipState: state, clipDispatch: dispatch }}>
       <div>
         {/* Headerで発生する「You should not use <Switch> outside a <Router>」エラー対策のためMemoryRouterを利用 */}
-        <MemoryRouter>
+        <BrowserRouter>
           <Header />
           <Switch>
             <Route exact path='/' component={HomePage} />
             <Route path='/clip' component={ClipPage} />
           </Switch>
-        </MemoryRouter>
+        </BrowserRouter>
       </div>
     </ClipContext.Provider>
   )
