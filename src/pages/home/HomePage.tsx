@@ -13,9 +13,6 @@ export const handleCategoryContext = createContext(
   {} as HandleCategoryContextType
 )
 
-// News APIのAPIキー
-const API = '<APIキー>'
-
 const HomePage: React.FC = () => {
   const [category, setCategory] = useState(categories[0])
   const [articles, setArticles] = useState([])
@@ -30,7 +27,8 @@ const HomePage: React.FC = () => {
   const fetchArticles = async () => {
     try {
       setLoading(true)
-      const URL = `http://newsapi.org/v2/top-headlines?country=jp&category=${category}&apiKey=${API}`
+      const apiKey = process.env.REACT_APP_NEWS_API_KEY
+      const URL = `http://newsapi.org/v2/top-headlines?country=jp&category=${category}&apiKey=${apiKey}`
       const res = await axios.get(URL)
       setArticles(res.data.articles)
       // テスト用にローカルに保存したNewsデータを利用する場合は、下3行のコメントを外し上3行をコメントアウト
